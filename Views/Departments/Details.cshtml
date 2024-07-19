@@ -1,0 +1,60 @@
+﻿@model WebApplication1.Models.Department
+@{
+    ViewData["Title"] = "Department Details";
+}
+
+<h1>Department Details</h1>
+
+<div>
+    <h4>Department</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">Name</dt>
+        <dd class="col-sm-10">@Model.Name</dd>
+
+        <dt class="col-sm-2">Logo</dt>
+        <dd class="col-sm-10"><img src="@Model.Logo" alt="Logo" style="width:50px;height:50px;" /></dd>
+
+        <dt class="col-sm-2">Parent Department</dt>
+        <dd class="col-sm-10">@Model.ParentDepartment?.Name</dd>
+
+        <dt class="col-sm-2">Sub-Departments</dt>
+        <dd class="col-sm-10">
+            @if (Model.SubDepartments.Any())
+            {
+                <ul>
+                    @foreach (var sub in Model.SubDepartments)
+                    {
+                        <li>@sub.Name</li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <p>No Sub-Departments</p>
+            }
+        </dd>
+
+        <dt class="col-sm-2">Parent Departments</dt>
+        <dd class="col-sm-10">
+            @if (ViewBag.ParentDepartments.Count > 0)
+            {
+                <ul>
+                    @foreach (var parent in ViewBag.ParentDepartments)
+                    {
+                        <li>@parent.Name (ID: @parent.Id)</li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <p>No Parent Departments</p>
+            }
+        </dd>
+    </dl>
+</div>
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
